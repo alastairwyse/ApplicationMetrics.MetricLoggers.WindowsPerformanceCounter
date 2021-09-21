@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Authors>Alastair Wyse</Authors>
+    <Description>An implementations of an ApplicationMetrics metric logger which writes metrics and instrumentation information to Windows performance counters.</Description>
+    <Copyright>Copyright © Alastair Wyse 2021</Copyright>
+    <PackageProjectUrl>https://github.com/alastairwyse/ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter</PackageProjectUrl>
+    <PackageIcon>ApplicationMetrics.ico</PackageIcon>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageTags>metric metrics instrumentation client application windows performance counter statistics</PackageTags>
+    <PackageReleaseNotes>Migrated from ApplicationMetrics</PackageReleaseNotes>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Version>2.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ApplicationMetrics" Version="3.0.0" />
+    <PackageReference Include="FrameworkAbstraction" Version="2.0.0" />
+    <PackageReference Include="StandardAbstraction" Version="1.1.0" />
+    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="5.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="ApplicationMetrics.ico">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
