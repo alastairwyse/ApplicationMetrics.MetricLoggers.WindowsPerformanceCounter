@@ -1,0 +1,203 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter</name>
+    </assembly>
+    <members>
+        <member name="T:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger">
+            <summary>
+            Writes metric and instrumentation events for an application to Windows performance counters.
+            </summary>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.#ctor(System.String,System.String,ApplicationMetrics.MetricLoggers.IBufferProcessingStrategy,System.Boolean)">
+            <summary>
+            Initialises a new instance of the ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger class.
+            </summary>
+            <param name="metricCategoryName">The name of the performance counter category which the metric events should be logged under.</param>
+            <param name="metricCategoryDescription">The description of the performance counter category which the metric events should be logged under.</param>
+            <param name="bufferProcessingStrategy">Object which implements a processing strategy for the buffers (queues).</param>
+            <param name="intervalMetricChecking">Specifies whether an exception should be thrown if the correct order of interval metric logging is not followed (e.g. End() method called before Begin()).</param>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.#ctor(System.String,System.String,ApplicationMetrics.MetricLoggers.IBufferProcessingStrategy,System.Boolean,FrameworkAbstraction.ICounterCreationDataCollection,FrameworkAbstraction.ICounterCreationDataFactory,FrameworkAbstraction.IPerformanceCounterCategory,FrameworkAbstraction.IPerformanceCounterFactory,StandardAbstraction.IDateTime,StandardAbstraction.IStopwatch)">
+            <summary>
+            Initialises a new instance of the ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger class.  Note this is an additional constructor to facilitate unit tests, and should not be used to instantiate the class under normal conditions.
+            </summary>
+            <param name="metricCategoryName">The name of the performance counter category which the metric events should be logged under.</param>
+            <param name="metricCategoryDescription">The description of the performance counter category which the metric events should be logged under.</param>
+            <param name="bufferProcessingStrategy">Object which implements a processing strategy for the buffers (queues).</param>
+            <param name="intervalMetricChecking">Specifies whether an exception should be thrown if the correct order of interval metric logging is not followed (e.g. End() method called before Begin()).</param>
+            <param name="counterCreationDataCollection">A test (mock) counter creation data collection object.</param>
+            <param name="counterCreationDataFactory">A test (mock) counter creation data factory object.</param>
+            <param name="performanceCounterCategory">A test (mock) performance counter category object.</param>
+            <param name="performanceCounterFactory">A test (mock) performance counter factory object.</param>
+            <param name="dateTime">A test (mock) DateTime object.</param>
+            <param name="stopWatch">A test (mock) Stopwatch object.</param>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.RegisterMetric(ApplicationMetrics.MetricBase)">
+            <summary>
+            Registers the specified metric to be written to the Windows performance counters.
+            </summary>
+            <param name="metric">The metric to register.</param>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.CreatePerformanceCounters">
+            <summary>
+            Creates Windows performance counters for the registered metrics and defined aggregates on the local computer.
+            </summary>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.Start">
+            <summary>
+            Starts a worker thread which calls methods to dequeue, total, and log metric events and aggregates to performance counters, at an interval specified by constructor parameter 'dequeueOperationLoopInterval'.
+            </summary>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.LogCountMetricTotal(ApplicationMetrics.CountMetric,System.Int64)">
+            <summary>
+            Logs the total of a count metric to a performance counter.
+            </summary>
+            <param name="countMetric">The count metric to log.</param>
+            <param name="value">The total.</param>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.LogAmountMetricTotal(ApplicationMetrics.AmountMetric,System.Int64)">
+            <summary>
+            Logs the total of an amount metric to a performance counter.
+            </summary>
+            <param name="amountMetric">The amount metric to log.</param>
+            <param name="value">The total.</param>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.LogStatusMetricValue(ApplicationMetrics.StatusMetric,System.Int64)">
+            <summary>
+            Logs the most recent value of a status metric to a performance counter.
+            </summary>
+            <param name="statusMetric">The status metric to log.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.LogIntervalMetricTotal(ApplicationMetrics.IntervalMetric,System.Int64)">
+            <summary>
+            Logs the total of an interval metric to a performance counter.
+            </summary>
+            <param name="intervalMetric">The interval metric to log.</param>
+            <param name="value">The total.</param>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.LogCountOverTimeUnitAggregate(ApplicationMetrics.MetricLoggers.MetricAggregateLogger.MetricAggregateContainer{ApplicationMetrics.CountMetric},System.Int64,System.Int64)">
+            <summary>
+            Logs a metric aggregate representing the number of occurrences of a count metric within the specified time unit to a performance counter.
+            </summary>
+            <param name="metricAggregate">The metric aggregate to log.</param>
+            <param name="totalInstances">The number of occurrences of the count metric.</param>
+            <param name="totalElapsedTimeUnits">The total elapsed time units.</param>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.LogAmountOverCountAggregate(ApplicationMetrics.MetricLoggers.MetricAggregateLogger.MetricAggregateContainer{ApplicationMetrics.AmountMetric,ApplicationMetrics.CountMetric},System.Int64,System.Int64)">
+            <summary>
+            Logs a metric aggregate representing the total of an amount metric per occurrence of a count metric to a performance counter.
+            </summary>
+            <param name="metricAggregate">The metric aggregate to log.</param>
+            <param name="totalAmount">The total of the amount metric.</param>
+            <param name="totalInstances">The number of occurrences of the count metric.</param>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.LogAmountOverTimeUnitAggregate(ApplicationMetrics.MetricLoggers.MetricAggregateLogger.MetricAggregateContainer{ApplicationMetrics.AmountMetric},System.Int64,System.Int64)">
+            <summary>
+            Logs a metric aggregate respresenting the total of an amount metric within the specified time unit to a performance counter.
+            </summary>
+            <param name="metricAggregate">The metric aggregate to log.</param>
+            <param name="totalAmount">The total of the amount metric.</param>
+            <param name="totalElapsedTimeUnits">The total elapsed time units.</param>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.LogAmountOverAmountAggregate(ApplicationMetrics.MetricLoggers.MetricAggregateLogger.MetricAggregateContainer{ApplicationMetrics.AmountMetric,ApplicationMetrics.AmountMetric},System.Int64,System.Int64)">
+            <summary>
+            Logs a metric aggregate respresenting the total of an amount metric divided by the total of another amount metric to a performance counter.
+            </summary>
+            <param name="metricAggregate">The metric aggregate to log.</param>
+            <param name="numeratorTotal">The total of the numerator amount metric.</param>
+            <param name="denominatorTotal">The total of the denominator amount metric.</param>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.LogIntervalOverCountAggregate(ApplicationMetrics.MetricLoggers.MetricAggregateLogger.MetricAggregateContainer{ApplicationMetrics.IntervalMetric,ApplicationMetrics.CountMetric},System.Int64,System.Int64)">
+            <summary>
+            Logs a metric aggregate respresenting the total of an interval metric per occurrence of a count metric to a performance counter.
+            </summary>
+            <param name="metricAggregate">The metric aggregate to log.</param>
+            <param name="totalInterval">The total of the interval metric.</param>
+            <param name="totalInstances">The number of occurrences of the count metric.</param>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.LogIntervalOverTotalRunTimeAggregate(ApplicationMetrics.MetricLoggers.MetricAggregateLogger.MetricAggregateContainer{ApplicationMetrics.IntervalMetric},System.Int64,System.Int64)">
+            <summary>
+            Logs a metric aggregate representing the total of an interval metric as a fraction of the total runtime of the logger to a performance counter.
+            </summary>
+            <param name="metricAggregate">The metric aggregate to log.</param>
+            <param name="totalInterval">The total of the interval metric.</param>
+            <param name="totalRunTime">The total run time of the logger since starting in milliseonds.</param>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.InitialiseProtectedMembers(System.String,System.String)">
+             <summary>
+             Initialises protected and private members of the class.
+             </summary>
+            <param name="metricCategoryName">The name of the performance counter category which the metric events should be logged under.</param>
+            <param name="metricCategoryDescription">The description of the performance counter category which the metric events should be logged under.</param>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.CounterNameAppendInstantaneous(System.String)">
+            <summary>
+            Appends a postfix to the specified counter name to indicate the instantaneous version of the counter.
+            </summary>
+            <param name="counterName">The name of the counter.</param>
+            <returns>The appended string.</returns>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.CounterDescriptionAppendInstantaneous(System.String)">
+            <summary>
+            Appends a postfix to the specified counter description to indicate the instantaneous version of the counter.
+            </summary>
+            <param name="counterDescription">The description of the counter.</param>
+            <returns>The appended string.</returns>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.CounterNameAppendBase(System.String)">
+            <summary>
+            Appends a postfix to the specified counter name to indicate the accompanying base counter associated with the counter.
+            </summary>
+            <param name="counterName">The name of the counter.</param>
+            <returns>The appended string.</returns>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.CounterDescriptionAppendBase(System.String)">
+            <summary>
+            Appends a postfix to the specified counter description to indicate the accompanying base counter associated with the counter.
+            </summary>
+            <param name="counterDescription">The description of the counter.</param>
+            <returns>The appended string.</returns>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.CounterNameAppendInstantaneousBase(System.String)">
+            <summary>
+            Appends a postfix to the specified counter name to indicate the accompanying base counter associated with the instantaneous version of the counter.
+            </summary>
+            <param name="counterName">The name of the counter.</param>
+            <returns>The appended string.</returns>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.CounterDescriptionAppendInstantaneousBase(System.String)">
+            <summary>
+            Appends a postfix to the specified counter description to indicate the accompanying base counter associated with the instantaneous version of the counter.
+            </summary>
+            <param name="counterDescription">The description of the counter.</param>
+            <returns>The appended string.</returns>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.RegisterPerformanceCounter(System.String)">
+            <summary>
+            Adds the specified name to the dictionary of the names of all registered metrics and aggregates, and their corresponding performance counters.
+            </summary>
+            <param name="name">The name of the metric or metric aggregate.</param>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.ValidateMetricName(ApplicationMetrics.MetricBase)">
+            <summary>
+            Validates that the name of the specified metric to ensure it can be registered with Windows performance counters.
+            </summary>
+            <param name="metric">The metric to validate the name of.</param>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.ValidateMetricAggregateName(System.String,System.String)">
+            <summary>
+            Validates that the name of the specified metric aggregate to ensure it can be registered with Windows performance counters.
+            </summary>
+            <param name="name">The name of the metric aggregate to validate.</param>
+            <param name="postfix">The postfix that is added to the metric aggregate name to denote the instantaneous and/or base counter for that metric.</param>
+        </member>
+        <member name="M:ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger.Dispose(System.Boolean)">
+            <summary>
+            Provides a method to free unmanaged resources used by this class.
+            </summary>
+            <param name="disposing">Whether the method is being called as part of an explicit Dispose routine, and hence whether managed resources should also be freed.</param>
+        </member>
+    </members>
+</doc>

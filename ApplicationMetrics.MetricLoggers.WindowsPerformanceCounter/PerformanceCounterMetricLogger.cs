@@ -211,7 +211,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter
         }
 
         /// <summary>
-        /// Starts a worker thread which calls methods to dequeue, total, and log metric events and aggregates to performance counters, at an interval specified by constructor parameter 'dequeueOperationLoopInterval'.
+        /// Creates any registered performance counters within Windows and starts a process to periodically write metrics and aggregates of metrics to the performance counters.
         /// </summary>
         public override void Start()
         {
