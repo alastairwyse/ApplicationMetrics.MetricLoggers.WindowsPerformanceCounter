@@ -136,7 +136,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
 
             e = Assert.Throws<Exception>(delegate
             {
-                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), new TestMessageReceivedMetric(), "DuplicateAggregateName", "Duplicate metric aggregate name.");
+                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), new TestMessageReceivedMetric(), "DuplicateAggregateName", "Duplicate metric aggregate name.");
                 testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageReceivedMetric(), TimeUnit.Second, "DuplicateAggregateName", "Duplicate metric aggregate name.");
             });
 
@@ -145,14 +145,14 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
             e = Assert.Throws<Exception>(delegate
             {
                 testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageReceivedMetric(), TimeUnit.Second, "DuplicateAggregateName", "Duplicate metric aggregate name.");
-                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), new TestMessageReceivedMetric(), "DuplicateAggregateName", "Duplicate metric aggregate name.");
+                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), new TestMessageReceivedMetric(), "DuplicateAggregateName", "Duplicate metric aggregate name.");
             });
 
             Assert.That(e.Message, Does.StartWith("Metric aggregate with name 'DuplicateAggregateName' has already been defined."));
 
             e = Assert.Throws<Exception>(delegate
             {
-                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), TimeUnit.Second, "DuplicateAggregateName", "Duplicate metric aggregate name.");
+                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), TimeUnit.Second, "DuplicateAggregateName", "Duplicate metric aggregate name.");
                 testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageReceivedMetric(), TimeUnit.Second, "DuplicateAggregateName", "Duplicate metric aggregate name.");
             });
 
@@ -161,30 +161,30 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
             e = Assert.Throws<Exception>(delegate
             {
                 testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageReceivedMetric(), TimeUnit.Second, "DuplicateAggregateName", "Duplicate metric aggregate name.");
-                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), TimeUnit.Second, "DuplicateAggregateName", "Duplicate metric aggregate name.");
+                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), TimeUnit.Second, "DuplicateAggregateName", "Duplicate metric aggregate name.");
             });
 
             Assert.That(e.Message, Does.StartWith("Metric aggregate with name 'DuplicateAggregateName' has already been defined."));
 
             e = Assert.Throws<Exception>(delegate
             {
-                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), TimeUnit.Second, "DuplicateAggregateName", "Duplicate metric aggregate name.");
-                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), new TestDiskBytesReadMetric(0), "DuplicateAggregateName", "Duplicate metric aggregate name.");
+                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), TimeUnit.Second, "DuplicateAggregateName", "Duplicate metric aggregate name.");
+                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), new TestDiskBytesReadMetric(), "DuplicateAggregateName", "Duplicate metric aggregate name.");
             });
 
             Assert.That(e.Message, Does.StartWith("Metric aggregate with name 'DuplicateAggregateName' has already been defined."));
 
             e = Assert.Throws<Exception>(delegate
             {
-                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), new TestDiskBytesReadMetric(0), "DuplicateAggregateName", "Duplicate metric aggregate name.");
-                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), TimeUnit.Second, "DuplicateAggregateName", "Duplicate metric aggregate name.");
+                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), new TestDiskBytesReadMetric(), "DuplicateAggregateName", "Duplicate metric aggregate name.");
+                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), TimeUnit.Second, "DuplicateAggregateName", "Duplicate metric aggregate name.");
             });
 
             Assert.That(e.Message, Does.StartWith("Metric aggregate with name 'DuplicateAggregateName' has already been defined."));
 
             e = Assert.Throws<Exception>(delegate
             {
-                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), TimeUnit.Second, "DuplicateAggregateName", "Duplicate metric aggregate name.");
+                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), TimeUnit.Second, "DuplicateAggregateName", "Duplicate metric aggregate name.");
                 testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestDiskReadTimeMetric(), new TestDiskReadOperationMetric(), "DuplicateAggregateName", "Duplicate metric aggregate name.");
             });
 
@@ -193,7 +193,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
             e = Assert.Throws<Exception>(delegate
             {
                 testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestDiskReadTimeMetric(), new TestDiskReadOperationMetric(), "DuplicateAggregateName", "Duplicate metric aggregate name.");
-                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), TimeUnit.Second, "DuplicateAggregateName", "Duplicate metric aggregate name.");
+                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), TimeUnit.Second, "DuplicateAggregateName", "Duplicate metric aggregate name.");
             });
 
             Assert.That(e.Message, Does.StartWith("Metric aggregate with name 'DuplicateAggregateName' has already been defined."));
@@ -307,7 +307,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
 
             e = Assert.Throws<ArgumentException>(delegate
             {
-                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), new TestMessageReceivedMetric(), " WhitespaceName ", "Test metric");
+                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), new TestMessageReceivedMetric(), " WhitespaceName ", "Test metric");
             });
 
             Assert.That(e.Message, Does.StartWith("Argument 'name' cannot contain leading or trailing whitespace."));
@@ -315,7 +315,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
 
             e = Assert.Throws<ArgumentException>(delegate
             {
-                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), TimeUnit.Second, "DoubleQuote\"Name", "Test metric");
+                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), TimeUnit.Second, "DoubleQuote\"Name", "Test metric");
             });
 
             Assert.That(e.Message, Does.StartWith("Argument 'name' cannot contain the '\"' character."));
@@ -323,7 +323,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
 
             e = Assert.Throws<ArgumentException>(delegate
             {
-                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), new TestDiskBytesReadMetric(0), "12345678901234567890123456789012345678901234567890123456789012345678901234567", "Test metric");
+                testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), new TestDiskBytesReadMetric(), "12345678901234567890123456789012345678901234567890123456789012345678901234567", "Test metric");
             });
 
             Assert.That(e.Message, Does.StartWith("Argument 'name' cannot exceed 76 characters."));
@@ -407,14 +407,14 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
         [Test]
         public void CreatePerformanceCounters_AmountMetric()
         {
-            mockCounterCreationDataFactory.Create(new TestMessageBytesReceivedMetric(0).Name, new TestMessageBytesReceivedMetric(0).Description, System.Diagnostics.PerformanceCounterType.NumberOfItems64).Returns<ICounterCreationData>(mockCounterCreationData);
+            mockCounterCreationDataFactory.Create(new TestMessageBytesReceivedMetric().Name, new TestMessageBytesReceivedMetric().Description, System.Diagnostics.PerformanceCounterType.NumberOfItems64).Returns<ICounterCreationData>(mockCounterCreationData);
             mockCounterCreationDataCollection.Add(mockCounterCreationData).Returns<Int32>(1);
             mockPerformanceCounterCategory.Exists(testMetricCategoryName).Returns<Boolean>(true);
 
-            testPerformanceCounterMetricLogger.RegisterMetric(new TestMessageBytesReceivedMetric(0));
+            testPerformanceCounterMetricLogger.RegisterMetric(new TestMessageBytesReceivedMetric());
             testPerformanceCounterMetricLogger.CreatePerformanceCounters();
 
-            mockCounterCreationDataFactory.Received(1).Create(new TestMessageBytesReceivedMetric(0).Name, new TestMessageBytesReceivedMetric(0).Description, System.Diagnostics.PerformanceCounterType.NumberOfItems64);
+            mockCounterCreationDataFactory.Received(1).Create(new TestMessageBytesReceivedMetric().Name, new TestMessageBytesReceivedMetric().Description, System.Diagnostics.PerformanceCounterType.NumberOfItems64);
             mockCounterCreationDataCollection.Received(1).Add(mockCounterCreationData);
             mockPerformanceCounterCategory.Received(1).Exists(testMetricCategoryName);
             mockPerformanceCounterCategory.Received(1).Delete(testMetricCategoryName);
@@ -431,7 +431,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
             mockCounterCreationDataFactory.Create("BytesReceivedPerMessageInstantaneousBase", "The number of bytes received per message (instantaneous base counter)", System.Diagnostics.PerformanceCounterType.AverageBase).Returns<ICounterCreationData>(mockCounterCreationData);
             mockPerformanceCounterCategory.Exists(testMetricCategoryName).Returns<Boolean>(true);
 
-            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), new TestMessageReceivedMetric(), "BytesReceivedPerMessage", "The number of bytes received per message");
+            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), new TestMessageReceivedMetric(), "BytesReceivedPerMessage", "The number of bytes received per message");
             testPerformanceCounterMetricLogger.CreatePerformanceCounters();
 
             mockCounterCreationDataFactory.Create("BytesReceivedPerMessage", "The number of bytes received per message", System.Diagnostics.PerformanceCounterType.NumberOfItems64);
@@ -460,10 +460,10 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
             mockCounterCreationDataFactory.Create("MessageBytesReceivedPerDayInstantaneousBase", "The number of message bytes received per day (instantaneous base counter)", System.Diagnostics.PerformanceCounterType.AverageBase).Returns<ICounterCreationData>(mockCounterCreationData);
             mockPerformanceCounterCategory.Exists(testMetricCategoryName).Returns<Boolean>(true);
 
-            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), TimeUnit.Second, "MessageBytesReceivedPerSecond", "The number of message bytes received per second");
-            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), TimeUnit.Minute, "MessageBytesReceivedPerMinute", "The number of message bytes received per minute");
-            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), TimeUnit.Hour, "MessageBytesReceivedPerHour", "The number of message bytes received per hour");
-            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), TimeUnit.Day, "MessageBytesReceivedPerDay", "The number of message bytes received per day");
+            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), TimeUnit.Second, "MessageBytesReceivedPerSecond", "The number of message bytes received per second");
+            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), TimeUnit.Minute, "MessageBytesReceivedPerMinute", "The number of message bytes received per minute");
+            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), TimeUnit.Hour, "MessageBytesReceivedPerHour", "The number of message bytes received per hour");
+            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), TimeUnit.Day, "MessageBytesReceivedPerDay", "The number of message bytes received per day");
             testPerformanceCounterMetricLogger.CreatePerformanceCounters();
 
             mockCounterCreationDataFactory.Received(1).Create("MessageBytesReceivedPerSecond", "The number of message bytes received per second", System.Diagnostics.PerformanceCounterType.NumberOfItems64);
@@ -491,7 +491,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
             mockCounterCreationDataFactory.Create("MessageBytesReceivedPerDiskBytesReadBase", "The number of message bytes received per disk bytes read (base counter)", System.Diagnostics.PerformanceCounterType.RawBase).Returns<ICounterCreationData>(mockCounterCreationData);
             mockPerformanceCounterCategory.Exists(testMetricCategoryName).Returns<Boolean>(true);
 
-            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), new TestDiskBytesReadMetric(0), "MessageBytesReceivedPerDiskBytesRead", "The number of message bytes received per disk bytes read");
+            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), new TestDiskBytesReadMetric(), "MessageBytesReceivedPerDiskBytesRead", "The number of message bytes received per disk bytes read");
             testPerformanceCounterMetricLogger.CreatePerformanceCounters();
 
             mockCounterCreationDataFactory.Received(1).Create("MessageBytesReceivedPerDiskBytesRead", "The number of message bytes received per disk bytes read", System.Diagnostics.PerformanceCounterType.RawFraction);
@@ -591,7 +591,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
 
             testPerformanceCounterMetricLogger.RegisterMetric(new TestDiskReadOperationMetric());
             testPerformanceCounterMetricLogger.RegisterMetric(new TestMessageReceivedMetric());
-            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), new TestMessageReceivedMetric(), "BytesReceivedPerMessage", "The number of bytes received per message");
+            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), new TestMessageReceivedMetric(), "BytesReceivedPerMessage", "The number of bytes received per message");
             testPerformanceCounterMetricLogger.Start();
             testPerformanceCounterMetricLogger.Stop();
             testPerformanceCounterMetricLogger.Dispose();
@@ -644,15 +644,15 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
                 // Returns for calls to Add()
                 200000L
             );
-            mockPerformanceCounterFactory.Create(testMetricCategoryName, (new TestMessageBytesReceivedMetric(0)).Name, false).Returns<IPerformanceCounter>(mockPerformanceCounter);
+            mockPerformanceCounterFactory.Create(testMetricCategoryName, (new TestMessageBytesReceivedMetric()).Name, false).Returns<IPerformanceCounter>(mockPerformanceCounter);
 
-            testPerformanceCounterMetricLogger.RegisterMetric(new TestMessageBytesReceivedMetric(0));
-            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(1024));
+            testPerformanceCounterMetricLogger.RegisterMetric(new TestMessageBytesReceivedMetric());
+            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(), 1024);
             testPerformanceCounterMetricLogger.Start();
             workerThreadLoopIterationCompleteSignal.WaitOne();
 
             var throwAway1 = mockDateTime.Received(1).UtcNow;
-            mockPerformanceCounterFactory.Received(1).Create(testMetricCategoryName, (new TestMessageBytesReceivedMetric(0)).Name, false);
+            mockPerformanceCounterFactory.Received(1).Create(testMetricCategoryName, (new TestMessageBytesReceivedMetric()).Name, false);
             var throwAway2 = mockStopWatch.Received(1).ElapsedTicks;
             mockPerformanceCounter.Received(1).RawValue = 1024L;
         }
@@ -672,20 +672,20 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
                 300000L, 
                 600000L
             );
-            mockPerformanceCounterFactory.Create(testMetricCategoryName, (new TestAvailableMemoryMetric(0)).Name, false).Returns<IPerformanceCounter>(mockPerformanceCounter);
-            mockPerformanceCounterFactory.Create(testMetricCategoryName, (new TestFreeWorkerThreadsMetric(0)).Name, false).Returns<IPerformanceCounter>(mockPerformanceCounter);
+            mockPerformanceCounterFactory.Create(testMetricCategoryName, (new TestAvailableMemoryMetric()).Name, false).Returns<IPerformanceCounter>(mockPerformanceCounter);
+            mockPerformanceCounterFactory.Create(testMetricCategoryName, (new TestFreeWorkerThreadsMetric()).Name, false).Returns<IPerformanceCounter>(mockPerformanceCounter);
 
-            testPerformanceCounterMetricLogger.RegisterMetric(new TestAvailableMemoryMetric(0));
-            testPerformanceCounterMetricLogger.RegisterMetric(new TestFreeWorkerThreadsMetric(0));
-            testPerformanceCounterMetricLogger.Set(new TestAvailableMemoryMetric(80740352));
-            testPerformanceCounterMetricLogger.Set(new TestFreeWorkerThreadsMetric(8));
-            testPerformanceCounterMetricLogger.Set(new TestAvailableMemoryMetric(714768384));
+            testPerformanceCounterMetricLogger.RegisterMetric(new TestAvailableMemoryMetric());
+            testPerformanceCounterMetricLogger.RegisterMetric(new TestFreeWorkerThreadsMetric());
+            testPerformanceCounterMetricLogger.Set(new TestAvailableMemoryMetric(), 80740352);
+            testPerformanceCounterMetricLogger.Set(new TestFreeWorkerThreadsMetric(), 8);
+            testPerformanceCounterMetricLogger.Set(new TestAvailableMemoryMetric(), 714768384);
             testPerformanceCounterMetricLogger.Start();
             workerThreadLoopIterationCompleteSignal.WaitOne();
 
             var throwAway1 = mockDateTime.Received(1).UtcNow;
-            mockPerformanceCounterFactory.Received(1).Create(testMetricCategoryName, (new TestAvailableMemoryMetric(0)).Name, false);
-            mockPerformanceCounterFactory.Received(1).Create(testMetricCategoryName, (new TestFreeWorkerThreadsMetric(0)).Name, false);
+            mockPerformanceCounterFactory.Received(1).Create(testMetricCategoryName, (new TestAvailableMemoryMetric()).Name, false);
+            mockPerformanceCounterFactory.Received(1).Create(testMetricCategoryName, (new TestFreeWorkerThreadsMetric()).Name, false);
             var throwAway2 = mockStopWatch.Received(3).ElapsedTicks;
             mockPerformanceCounter.Received(1).RawValue = 714768384L;
             mockPerformanceCounter.Received(1).RawValue = 8L;
@@ -753,7 +753,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
             testPerformanceCounterMetricLogger.RegisterMetric(new TestMessageReceivedMetric());
             // Tests that below metrics other than TestMessageReceivedMetric are not logged
             testPerformanceCounterMetricLogger.Increment(new TestDiskReadOperationMetric());
-            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(1024));
+            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(), 1024);
             testPerformanceCounterMetricLogger.Increment(new TestMessageReceivedMetric());
             testPerformanceCounterMetricLogger.Start();
             workerThreadLoopIterationCompleteSignal.WaitOne();
@@ -879,10 +879,10 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
             mockPerformanceCounterFactory.Create(testMetricCategoryName, "BytesReceivedPerMessageInstantaneous", false).Returns<IPerformanceCounter>(mockPerformanceCounter);
             mockPerformanceCounterFactory.Create(testMetricCategoryName, "BytesReceivedPerMessageInstantaneousBase", false).Returns<IPerformanceCounter>(mockPerformanceCounter);
 
-            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), new TestMessageReceivedMetric(), "BytesReceivedPerMessage", "The number of bytes received per message");
-            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(125));
+            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), new TestMessageReceivedMetric(), "BytesReceivedPerMessage", "The number of bytes received per message");
+            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(), 125);
             testPerformanceCounterMetricLogger.Increment(new TestMessageReceivedMetric());
-            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(384));
+            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(), 384);
             testPerformanceCounterMetricLogger.Increment(new TestMessageReceivedMetric());
             testPerformanceCounterMetricLogger.Start();
             workerThreadLoopIterationCompleteSignal.WaitOne();
@@ -919,9 +919,9 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
             mockPerformanceCounterFactory.Create(testMetricCategoryName, "BytesReceivedPerMessageInstantaneous", false).Returns<IPerformanceCounter>(mockPerformanceCounter);
             mockPerformanceCounterFactory.Create(testMetricCategoryName, "BytesReceivedPerMessageInstantaneousBase", false).Returns<IPerformanceCounter>(mockPerformanceCounter);
 
-            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), new TestMessageReceivedMetric(), "BytesReceivedPerMessage", "The number of bytes received per message");
-            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(125));
-            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(384));
+            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), new TestMessageReceivedMetric(), "BytesReceivedPerMessage", "The number of bytes received per message");
+            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(), 125);
+            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(), 384);
             testPerformanceCounterMetricLogger.Start();
             workerThreadLoopIterationCompleteSignal.WaitOne();
             // Wait a few more milliseconds so that any unexpected method calls after the signal are caught
@@ -970,13 +970,13 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
             mockPerformanceCounterFactory.Create(testMetricCategoryName, "MessageBytesReceivedPerDayInstantaneous", false).Returns<IPerformanceCounter>(mockPerformanceCounter);
             mockPerformanceCounterFactory.Create(testMetricCategoryName, "MessageBytesReceivedPerDayInstantaneousBase", false).Returns<IPerformanceCounter>(mockPerformanceCounter);
 
-            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), TimeUnit.Second, "MessageBytesReceivedPerSecond", "The number of message bytes received per second");
-            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), TimeUnit.Minute, "MessageBytesReceivedPerMinute", "The number of message bytes received per minute");
-            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), TimeUnit.Day, "MessageBytesReceivedPerDay", "The number of message bytes received per day");
-            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(149));
-            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(257));
-            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(439));
-            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(273));
+            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), TimeUnit.Second, "MessageBytesReceivedPerSecond", "The number of message bytes received per second");
+            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), TimeUnit.Minute, "MessageBytesReceivedPerMinute", "The number of message bytes received per minute");
+            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), TimeUnit.Day, "MessageBytesReceivedPerDay", "The number of message bytes received per day");
+            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(), 149);
+            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(), 257);
+            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(), 439);
+            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(), 273);
             testPerformanceCounterMetricLogger.Start();
             workerThreadLoopIterationCompleteSignal.WaitOne();
             // Wait a few more milliseconds so that any unexpected method calls after the signal are caught
@@ -1017,7 +1017,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
             mockPerformanceCounterFactory.Create(testMetricCategoryName, "MessageBytesReceivedPerSecond", false).Returns<IPerformanceCounter>(mockPerformanceCounter);
             mockPerformanceCounterFactory.Create(testMetricCategoryName, "MessageBytesReceivedPerSecondInstantaneous", false).Returns<IPerformanceCounter>(mockPerformanceCounter);
 
-            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), TimeUnit.Second, "MessageBytesReceivedPerSecond", "The number of message bytes received per second");
+            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), TimeUnit.Second, "MessageBytesReceivedPerSecond", "The number of message bytes received per second");
             testPerformanceCounterMetricLogger.Start();
             workerThreadLoopIterationCompleteSignal.WaitOne();
             // Wait a few more milliseconds so that any unexpected method calls after the signal are caught
@@ -1049,11 +1049,11 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
             mockPerformanceCounterFactory.Create(testMetricCategoryName, "MessageBytesReceivedPerDiskBytesRead", false).Returns<IPerformanceCounter>(mockPerformanceCounter);
             mockPerformanceCounterFactory.Create(testMetricCategoryName, "MessageBytesReceivedPerDiskBytesReadBase", false).Returns<IPerformanceCounter>(mockPerformanceCounter);
 
-            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), new TestDiskBytesReadMetric(0), "MessageBytesReceivedPerDiskBytesRead", "The number of message bytes received per disk bytes read");
-            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(149));
-            testPerformanceCounterMetricLogger.Add(new TestDiskBytesReadMetric(257));
-            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(439));
-            testPerformanceCounterMetricLogger.Add(new TestDiskBytesReadMetric(271));
+            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), new TestDiskBytesReadMetric(), "MessageBytesReceivedPerDiskBytesRead", "The number of message bytes received per disk bytes read");
+            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(), 149);
+            testPerformanceCounterMetricLogger.Add(new TestDiskBytesReadMetric(), 257);
+            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(), 439);
+            testPerformanceCounterMetricLogger.Add(new TestDiskBytesReadMetric(), 271);
             testPerformanceCounterMetricLogger.Start();
             workerThreadLoopIterationCompleteSignal.WaitOne();
             // Wait a few more milliseconds so that any unexpected method calls after the signal are caught
@@ -1086,9 +1086,9 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
             mockPerformanceCounterFactory.Create(testMetricCategoryName, "MessageBytesReceivedPerDiskBytesRead", false).Returns<IPerformanceCounter>(mockPerformanceCounter);
             mockPerformanceCounterFactory.Create(testMetricCategoryName, "MessageBytesReceivedPerDiskBytesReadBase", false).Returns<IPerformanceCounter>(mockPerformanceCounter);
 
-            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(0), new TestDiskBytesReadMetric(0), "MessageBytesReceivedPerDiskBytesRead", "The number of message bytes received per disk bytes read");
-            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(149));
-            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(439));
+            testPerformanceCounterMetricLogger.DefineMetricAggregate(new TestMessageBytesReceivedMetric(), new TestDiskBytesReadMetric(), "MessageBytesReceivedPerDiskBytesRead", "The number of message bytes received per disk bytes read");
+            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(), 149);
+            testPerformanceCounterMetricLogger.Add(new TestMessageBytesReceivedMetric(), 439);
             testPerformanceCounterMetricLogger.Start();
             workerThreadLoopIterationCompleteSignal.WaitOne();
             // Wait a few more milliseconds so that any unexpected method calls after the signal are caught

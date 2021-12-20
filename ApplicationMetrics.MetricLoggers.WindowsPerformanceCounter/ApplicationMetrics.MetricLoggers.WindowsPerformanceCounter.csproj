@@ -38,7 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ApplicationMetrics" Version="3.0.0" />
+    <PackageReference Include="ApplicationMetrics" Version="4.0.0" />
     <PackageReference Include="FrameworkAbstraction" Version="2.0.0" />
     <PackageReference Include="StandardAbstraction" Version="1.1.0" />
     <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="5.0.1" />

@@ -21,11 +21,10 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
     /// </summary>
     class TestDiskBytesReadMetric : AmountMetric
     {
-        public TestDiskBytesReadMetric(long bytesRead)
+        public TestDiskBytesReadMetric()
         {
             base.name = "DiskBytesRead";
             base.description = "A single instance of this metric represents the number of bytes read during a disk read operation.";
-            base.amount = bytesRead;
         }
     }
 }

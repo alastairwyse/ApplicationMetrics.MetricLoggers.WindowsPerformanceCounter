@@ -21,11 +21,10 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
     /// </summary>
     class TestMessageBytesReceivedMetric : AmountMetric
     {
-        public TestMessageBytesReceivedMetric(long bytesReceived)
+        public TestMessageBytesReceivedMetric()
         {
             base.name = "MessageBytesReceived";
             base.description = "A single instance of this metric represents the number of bytes received when receiving a message from an external source.";
-            base.amount = bytesReceived;
         }
     }
 }

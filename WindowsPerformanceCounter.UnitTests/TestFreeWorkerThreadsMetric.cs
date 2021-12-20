@@ -21,11 +21,10 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
     /// </summary>
     class TestFreeWorkerThreadsMetric : StatusMetric
     {
-        public TestFreeWorkerThreadsMetric(long freeWorkerThreadCount)
+        public TestFreeWorkerThreadsMetric()
         {
             base.name = "FreeWorkerThreads";
             base.description = "A single instance of this metric represents the available free worker threads in the application at a given time.";
-            base.value = freeWorkerThreadCount;
         }
     }
 }
