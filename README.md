@@ -19,6 +19,12 @@ A detailed sample implementation...<br>
     <td><b>Changes</b></td>
   </tr>
   <tr>
+    <td valign="top">3.0.0</td>
+    <td>
+      Updated for compatibility with ApplicationMetrics version 4.0.0.
+    </td>
+  </tr>
+  <tr>
     <td valign="top">2.0.0</td>
     <td>
       Migrated from ApplicationMetrics and upgraded to .NET Core.

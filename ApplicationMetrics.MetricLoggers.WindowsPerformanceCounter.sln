@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31313.79
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter", "ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter\ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.csproj", "{67066775-4045-481F-9DE9-1EDB387B7EB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsPerformanceCounter.UnitTests", "WindowsPerformanceCounter.UnitTests\WindowsPerformanceCounter.UnitTests.csproj", "{D8D03059-8F3B-4552-AD8A-02C1C5B86816}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WindowsPerformanceCounter.UnitTests", "WindowsPerformanceCounter.UnitTests\WindowsPerformanceCounter.UnitTests.csproj", "{D8D03059-8F3B-4552-AD8A-02C1C5B86816}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
