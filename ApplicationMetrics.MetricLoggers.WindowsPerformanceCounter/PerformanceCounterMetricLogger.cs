@@ -47,7 +47,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter
         /// <param name="metricCategoryName">The name of the performance counter category which the metric events should be logged under.</param>
         /// <param name="metricCategoryDescription">The description of the performance counter category which the metric events should be logged under.</param>
         /// <param name="bufferProcessingStrategy">Object which implements a processing strategy for the buffers (queues).</param>
-        /// <param name="intervalMetricChecking">Specifies whether an exception should be thrown if the correct order of interval metric logging is not followed (e.g. End() method called before Begin()).</param>
+        /// <param name="intervalMetricChecking">Specifies whether an exception should be thrown if the correct order of interval metric logging is not followed (e.g. End() method called before Begin()).  Note that this parameter only has an effect when running in 'non-interleaved' mode.</param>
         public PerformanceCounterMetricLogger(string metricCategoryName, string metricCategoryDescription, IBufferProcessingStrategy bufferProcessingStrategy, bool intervalMetricChecking)
             : base(bufferProcessingStrategy, intervalMetricChecking)
         {
@@ -63,15 +63,16 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter
         /// <param name="metricCategoryName">The name of the performance counter category which the metric events should be logged under.</param>
         /// <param name="metricCategoryDescription">The description of the performance counter category which the metric events should be logged under.</param>
         /// <param name="bufferProcessingStrategy">Object which implements a processing strategy for the buffers (queues).</param>
-        /// <param name="intervalMetricChecking">Specifies whether an exception should be thrown if the correct order of interval metric logging is not followed (e.g. End() method called before Begin()).</param>
-        /// <param name="counterCreationDataCollection">A test (mock) counter creation data collection object.</param>
-        /// <param name="counterCreationDataFactory">A test (mock) counter creation data factory object.</param>
-        /// <param name="performanceCounterCategory">A test (mock) performance counter category object.</param>
-        /// <param name="performanceCounterFactory">A test (mock) performance counter factory object.</param>
-        /// <param name="dateTime">A test (mock) DateTime object.</param>
-        /// <param name="stopWatch">A test (mock) Stopwatch object.</param>
-        public PerformanceCounterMetricLogger(string metricCategoryName, string metricCategoryDescription, IBufferProcessingStrategy bufferProcessingStrategy, bool intervalMetricChecking, ICounterCreationDataCollection counterCreationDataCollection, ICounterCreationDataFactory counterCreationDataFactory, IPerformanceCounterCategory performanceCounterCategory, IPerformanceCounterFactory performanceCounterFactory, IDateTime dateTime, IStopwatch stopWatch)
-            : base(bufferProcessingStrategy, intervalMetricChecking, dateTime, stopWatch)
+        /// <param name="intervalMetricChecking">Specifies whether an exception should be thrown if the correct order of interval metric logging is not followed (e.g. End() method called before Begin()).  Note that this parameter only has an effect when running in 'non-interleaved' mode.</param>
+        /// <param name="counterCreationDataCollection">A test (mock) <see cref="ICounterCreationDataCollection"/> object.</param>
+        /// <param name="counterCreationDataFactory">A test (mock) <see cref="ICounterCreationDataFactory"/> object.</param>
+        /// <param name="performanceCounterCategory">A test (mock) <see cref="IPerformanceCounterCategory"/> object.</param>
+        /// <param name="performanceCounterFactory">A test (mock) <see cref="IPerformanceCounterFactory"/> object.</param>
+        /// <param name="dateTime">A test (mock) <see cref="StandardAbstraction.DateTime"/> object.</param>
+        /// <param name="stopWatch">A test (mock) <see cref="Stopwatch"/> object.</param>
+        /// <param name="guidProvider">A test (mock) <see cref="IGuidProvider"/> object.</param>
+        public PerformanceCounterMetricLogger(string metricCategoryName, string metricCategoryDescription, IBufferProcessingStrategy bufferProcessingStrategy, bool intervalMetricChecking, ICounterCreationDataCollection counterCreationDataCollection, ICounterCreationDataFactory counterCreationDataFactory, IPerformanceCounterCategory performanceCounterCategory, IPerformanceCounterFactory performanceCounterFactory, IDateTime dateTime, IStopwatch stopWatch, IGuidProvider guidProvider)
+            : base(bufferProcessingStrategy, intervalMetricChecking, dateTime, stopWatch, guidProvider)
         {
             InitialiseProtectedMembers(metricCategoryName, metricCategoryDescription);
             this.counterCreationDataCollection = counterCreationDataCollection;
