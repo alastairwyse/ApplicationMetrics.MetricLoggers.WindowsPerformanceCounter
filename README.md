@@ -21,7 +21,7 @@ A detailed sample implementation...<br />
   <tr>
     <td valign="top">5.0.0</td>
     <td>
-      Updated for compatibility with ApplicationMetrics version 6.6.0.<br />
+      Updated for compatibility with ApplicationMetrics version 6.0.0.<br />
       Updated to .NET 6.0.
     </td>
   </tr>

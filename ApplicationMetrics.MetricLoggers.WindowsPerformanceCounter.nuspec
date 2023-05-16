@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter</id>
-    <version>5.0.0</version>
+    <version>5.1.0</version>
     <authors>Alastair Wyse</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">Apache-2.0</license>
@@ -10,7 +10,7 @@
     <icon>ApplicationMetrics.png</icon>
     <projectUrl>https://github.com/alastairwyse/ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter</projectUrl>
     <description>An implementation of an ApplicationMetrics metric logger which writes metrics and instrumentation information to Windows performance counters.</description>
-    <releaseNotes>      Updated for compatibility with ApplicationMetrics version 6.6.0.
+    <releaseNotes>      Updated for compatibility with ApplicationMetrics version 6.0.0.
 Updated to .NET 6.0.</releaseNotes>
     <copyright>Copyright © Alastair Wyse 2023</copyright>
     <tags>metric metrics instrumentation client application windows performance counter statistics filter</tags>
@@ -25,8 +25,8 @@ Updated to .NET 6.0.</releaseNotes>
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Development\C#\AppMetrics.WPC\ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter\bin\Debug\netcoreapp3.1\ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.dll" target="lib\netcoreapp3.1\ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.dll" />
-    <file src="C:\Development\C#\AppMetrics.WPC\ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter\bin\Debug\netcoreapp3.1\ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.xml" target="lib\netcoreapp3.1\ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.xml" />
+    <file src="C:\Development\C#\AppMetrics.WPC\ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter\bin\Release\net6.0\ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.dll" target="lib\net6.0\ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.dll" />
+    <file src="C:\Development\C#\AppMetrics.WPC\ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter\bin\Release\net6.0\ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.xml" target="lib\net6.0\ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.xml" />
     <file src="C:\Development\C#\AppMetrics.WPC\Resources\ApplicationMetrics.png" target="ApplicationMetrics.png" />
   </files>
 </package>
