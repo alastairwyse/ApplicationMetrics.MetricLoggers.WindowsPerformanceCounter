@@ -26,6 +26,9 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter
     /// </summary>
     public class PerformanceCounterMetricLogger : MetricAggregateLogger, IDisposable
     {
+        #pragma warning disable CA1416
+        #pragma warning disable 1591
+
         protected const string performanceCounterAggregateInstantaneousPostFix = "Instantaneous";
         protected const string performanceCounterAggregateBasePostFix = "Base";
         protected const int performanceCounterMaximumNameLength = 80;
@@ -41,15 +44,19 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter
         protected IPerformanceCounterCategory performanceCounterCategory;
         protected IPerformanceCounterFactory performanceCounterFactory;
 
+        #pragma warning restore 1591
+
         /// <summary>
         /// Initialises a new instance of the ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger class.
         /// </summary>
         /// <param name="metricCategoryName">The name of the performance counter category which the metric events should be logged under.</param>
         /// <param name="metricCategoryDescription">The description of the performance counter category which the metric events should be logged under.</param>
         /// <param name="bufferProcessingStrategy">Object which implements a processing strategy for the buffers (queues).</param>
+        /// <param name="intervalMetricBaseTimeUnit">The base time unit to use to log interval metrics.</param>
         /// <param name="intervalMetricChecking">Specifies whether an exception should be thrown if the correct order of interval metric logging is not followed (e.g. End() method called before Begin()).  Note that this parameter only has an effect when running in 'non-interleaved' mode.</param>
-        public PerformanceCounterMetricLogger(string metricCategoryName, string metricCategoryDescription, IBufferProcessingStrategy bufferProcessingStrategy, bool intervalMetricChecking)
-            : base(bufferProcessingStrategy, intervalMetricChecking)
+        /// <remarks>The class uses a <see cref="Stopwatch"/> to calculate and log interval metrics.  Since the smallest unit of time supported by Stopwatch is a tick (100 nanoseconds), the smallest level of granularity supported when constructor parameter 'intervalMetricBaseTimeUnit' is set to <see cref="IntervalMetricBaseTimeUnit.Nanosecond"/> is 100 nanoseconds.</remarks>
+        public PerformanceCounterMetricLogger(string metricCategoryName, string metricCategoryDescription, IBufferProcessingStrategy bufferProcessingStrategy, IntervalMetricBaseTimeUnit intervalMetricBaseTimeUnit, bool intervalMetricChecking)
+            : base(bufferProcessingStrategy, intervalMetricBaseTimeUnit, intervalMetricChecking)
         {
             InitialiseProtectedMembers(metricCategoryName, metricCategoryDescription);
             counterCreationDataFactory = new CounterCreationDataFactory();
@@ -58,11 +65,12 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter
         }
 
         /// <summary>
-        /// Initialises a new instance of the ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger class.  Note this is an additional constructor to facilitate unit tests, and should not be used to instantiate the class under normal conditions.
+        /// Initialises a new instance of the ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.PerformanceCounterMetricLogger class.
         /// </summary>
         /// <param name="metricCategoryName">The name of the performance counter category which the metric events should be logged under.</param>
         /// <param name="metricCategoryDescription">The description of the performance counter category which the metric events should be logged under.</param>
         /// <param name="bufferProcessingStrategy">Object which implements a processing strategy for the buffers (queues).</param>
+        /// <param name="intervalMetricBaseTimeUnit">The base time unit to use to log interval metrics.</param>
         /// <param name="intervalMetricChecking">Specifies whether an exception should be thrown if the correct order of interval metric logging is not followed (e.g. End() method called before Begin()).  Note that this parameter only has an effect when running in 'non-interleaved' mode.</param>
         /// <param name="counterCreationDataCollection">A test (mock) <see cref="ICounterCreationDataCollection"/> object.</param>
         /// <param name="counterCreationDataFactory">A test (mock) <see cref="ICounterCreationDataFactory"/> object.</param>
@@ -71,8 +79,9 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter
         /// <param name="dateTime">A test (mock) <see cref="StandardAbstraction.DateTime"/> object.</param>
         /// <param name="stopWatch">A test (mock) <see cref="Stopwatch"/> object.</param>
         /// <param name="guidProvider">A test (mock) <see cref="IGuidProvider"/> object.</param>
-        public PerformanceCounterMetricLogger(string metricCategoryName, string metricCategoryDescription, IBufferProcessingStrategy bufferProcessingStrategy, bool intervalMetricChecking, ICounterCreationDataCollection counterCreationDataCollection, ICounterCreationDataFactory counterCreationDataFactory, IPerformanceCounterCategory performanceCounterCategory, IPerformanceCounterFactory performanceCounterFactory, IDateTime dateTime, IStopwatch stopWatch, IGuidProvider guidProvider)
-            : base(bufferProcessingStrategy, intervalMetricChecking, dateTime, stopWatch, guidProvider)
+        /// <remarks>This constructor is included to facilitate unit testing.</remarks>
+        public PerformanceCounterMetricLogger(string metricCategoryName, string metricCategoryDescription, IBufferProcessingStrategy bufferProcessingStrategy, IntervalMetricBaseTimeUnit intervalMetricBaseTimeUnit, bool intervalMetricChecking, ICounterCreationDataCollection counterCreationDataCollection, ICounterCreationDataFactory counterCreationDataFactory, IPerformanceCounterCategory performanceCounterCategory, IPerformanceCounterFactory performanceCounterFactory, IDateTime dateTime, IStopwatch stopWatch, IGuidProvider guidProvider)
+            : base(bufferProcessingStrategy, intervalMetricBaseTimeUnit, intervalMetricChecking, dateTime, stopWatch, guidProvider)
         {
             InitialiseProtectedMembers(metricCategoryName, metricCategoryDescription);
             this.counterCreationDataCollection = counterCreationDataCollection;
@@ -228,6 +237,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter
 
         #region Base Class Method Implementations
 
+        /// <inheritdoc/>
         public override void DefineMetricAggregate(CountMetric countMetric, TimeUnit timeUnit, string name, string description)
         {
             ValidateMetricAggregateName(name, performanceCounterAggregateInstantaneousPostFix + performanceCounterAggregateBasePostFix);
@@ -241,6 +251,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter
             }
         }
 
+        /// <inheritdoc/>
         public override void DefineMetricAggregate(AmountMetric amountMetric, CountMetric countMetric, string name, string description)
         {
             ValidateMetricAggregateName(name, performanceCounterAggregateInstantaneousPostFix + performanceCounterAggregateBasePostFix);
@@ -250,6 +261,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter
             RegisterPerformanceCounter(CounterNameAppendInstantaneousBase(name));
         }
 
+        /// <inheritdoc/>
         public override void DefineMetricAggregate(AmountMetric amountMetric, TimeUnit timeUnit, string name, string description)
         {
             ValidateMetricAggregateName(name, performanceCounterAggregateInstantaneousPostFix + performanceCounterAggregateBasePostFix);
@@ -263,6 +275,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter
             }
         }
 
+        /// <inheritdoc/>
         public override void DefineMetricAggregate(AmountMetric numeratorAmountMetric, AmountMetric denominatorAmountMetric, string name, string description)
         {
             ValidateMetricAggregateName(name, performanceCounterAggregateBasePostFix);
@@ -271,6 +284,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter
             RegisterPerformanceCounter(CounterNameAppendBase(name));
         }
 
+        /// <inheritdoc/>
         public override void DefineMetricAggregate(IntervalMetric intervalMetric, CountMetric countMetric, string name, string description)
         {
             ValidateMetricAggregateName(name, performanceCounterAggregateInstantaneousPostFix + performanceCounterAggregateBasePostFix);
@@ -280,6 +294,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter
             RegisterPerformanceCounter(CounterNameAppendInstantaneousBase(name));
         }
 
+        /// <inheritdoc/>
         public override void DefineMetricAggregate(IntervalMetric intervalMetric, string name, string description)
         {
             ValidateMetricAggregateName(name, performanceCounterAggregateBasePostFix);
@@ -613,6 +628,8 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter
         }
 
         #endregion
+
+        #pragma warning restore CA1416
 
         #region Finalize / Dispose Methods
 

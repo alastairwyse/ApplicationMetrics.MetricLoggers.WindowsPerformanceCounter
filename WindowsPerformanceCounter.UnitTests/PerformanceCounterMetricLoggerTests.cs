@@ -23,7 +23,6 @@ using NSubstitute;
 using StandardAbstraction;
 using FrameworkAbstraction;
 
-
 namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
 {
     /// <summary>
@@ -35,6 +34,8 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
         // Some of these tests use Thread.Sleep() statements to synchronise activity between the main thread and buffer processing worker thread, and hence results could be non-deterministic depending on system thread scheduling and performance.
         // Decided to do this, as making things fully deterministic would involve adding more test-only thread synchronising mechanisms (in addition to the existing WorkerThreadBufferProcessorBase.loopIterationCompleteSignal property), which would mean more redundtant statements executing during normal runtime.
         // I think the current implementation strikes a balance between having fully deterministic tests, and not interfering too much with normal runtime operation.
+
+        #pragma warning disable CA1416
 
         private string testMetricCategoryName = "TestCategory";
         private string testMetricCategoryDescription = "Description of Test Category"; private ICounterCreationDataCollection mockCounterCreationDataCollection;
@@ -64,7 +65,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
             mockCounterCreationData = Substitute.For<ICounterCreationData>();
             workerThreadLoopIterationCompleteSignal = new ManualResetEvent(false);
             bufferProcessor = new LoopingWorkerThreadBufferProcessor(10, workerThreadLoopIterationCompleteSignal, 1);
-            testPerformanceCounterMetricLogger = new PerformanceCounterMetricLogger(testMetricCategoryName, testMetricCategoryDescription, bufferProcessor, true, mockCounterCreationDataCollection, mockCounterCreationDataFactory, mockPerformanceCounterCategory, mockPerformanceCounterFactory, mockDateTime, mockStopWatch, mockGuidProvider);
+            testPerformanceCounterMetricLogger = new PerformanceCounterMetricLogger(testMetricCategoryName, testMetricCategoryDescription, bufferProcessor, IntervalMetricBaseTimeUnit.Millisecond, true, mockCounterCreationDataCollection, mockCounterCreationDataFactory, mockPerformanceCounterCategory, mockPerformanceCounterFactory, mockDateTime, mockStopWatch, mockGuidProvider);
 
             mockGuidProvider.NewGuid().Returns(Guid.NewGuid());
         }
@@ -82,7 +83,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
         {
             ArgumentException e = Assert.Throws<ArgumentException>(delegate
             {
-                testPerformanceCounterMetricLogger = new PerformanceCounterMetricLogger(" ", testMetricCategoryDescription, bufferProcessor, true);
+                testPerformanceCounterMetricLogger = new PerformanceCounterMetricLogger(" ", testMetricCategoryDescription, bufferProcessor, IntervalMetricBaseTimeUnit.Millisecond, true);
             });
 
             Assert.That(e.Message, Does.StartWith("Argument 'metricCategoryName' cannot be blank."));
@@ -94,7 +95,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
         {
             ArgumentException e = Assert.Throws<ArgumentException>(delegate
             {
-                testPerformanceCounterMetricLogger = new PerformanceCounterMetricLogger(testMetricCategoryName, " ", bufferProcessor, true);
+                testPerformanceCounterMetricLogger = new PerformanceCounterMetricLogger(testMetricCategoryName, " ", bufferProcessor, IntervalMetricBaseTimeUnit.Millisecond, true);
             });
 
             Assert.That(e.Message, Does.StartWith("Argument 'metricCategoryDescription' cannot be blank."));
@@ -263,7 +264,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
 
             e = Assert.Throws<Exception>(delegate
             {
-                testPerformanceCounterMetricLogger = new PerformanceCounterMetricLogger(testMetricCategoryName, testMetricCategoryDescription, bufferProcessor, true, mockCounterCreationDataCollection, mockCounterCreationDataFactory, mockPerformanceCounterCategory, mockPerformanceCounterFactory, mockDateTime, mockStopWatch, mockGuidProvider);
+                testPerformanceCounterMetricLogger = new PerformanceCounterMetricLogger(testMetricCategoryName, testMetricCategoryDescription, bufferProcessor, IntervalMetricBaseTimeUnit.Millisecond, true, mockCounterCreationDataCollection, mockCounterCreationDataFactory, mockPerformanceCounterCategory, mockPerformanceCounterFactory, mockDateTime, mockStopWatch, mockGuidProvider);
                 testPerformanceCounterMetricLogger.RegisterMetric(new LongNameMetric());
                 testPerformanceCounterMetricLogger.CreatePerformanceCounters();
             });
@@ -272,7 +273,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
 
             e = Assert.Throws<Exception>(delegate
             {
-                testPerformanceCounterMetricLogger = new PerformanceCounterMetricLogger(testMetricCategoryName, testMetricCategoryDescription, bufferProcessor, true, mockCounterCreationDataCollection, mockCounterCreationDataFactory, mockPerformanceCounterCategory, mockPerformanceCounterFactory, mockDateTime, mockStopWatch, mockGuidProvider);
+                testPerformanceCounterMetricLogger = new PerformanceCounterMetricLogger(testMetricCategoryName, testMetricCategoryDescription, bufferProcessor, IntervalMetricBaseTimeUnit.Millisecond, true, mockCounterCreationDataCollection, mockCounterCreationDataFactory, mockPerformanceCounterCategory, mockPerformanceCounterFactory, mockDateTime, mockStopWatch, mockGuidProvider);
                 testPerformanceCounterMetricLogger.RegisterMetric(new WhitespaceNameMetric());
                 testPerformanceCounterMetricLogger.CreatePerformanceCounters();
             });
@@ -281,7 +282,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
 
             e = Assert.Throws<Exception>(delegate
             {
-                testPerformanceCounterMetricLogger = new PerformanceCounterMetricLogger(testMetricCategoryName, testMetricCategoryDescription, bufferProcessor, true, mockCounterCreationDataCollection, mockCounterCreationDataFactory, mockPerformanceCounterCategory, mockPerformanceCounterFactory, mockDateTime, mockStopWatch, mockGuidProvider);
+                testPerformanceCounterMetricLogger = new PerformanceCounterMetricLogger(testMetricCategoryName, testMetricCategoryDescription, bufferProcessor, IntervalMetricBaseTimeUnit.Millisecond, true, mockCounterCreationDataCollection, mockCounterCreationDataFactory, mockPerformanceCounterCategory, mockPerformanceCounterFactory, mockDateTime, mockStopWatch, mockGuidProvider);
                 testPerformanceCounterMetricLogger.RegisterMetric(new DoubleQuoteNameMetric());
                 testPerformanceCounterMetricLogger.CreatePerformanceCounters();
             });
@@ -290,7 +291,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
 
             e = Assert.Throws<Exception>(delegate
             {
-                testPerformanceCounterMetricLogger = new PerformanceCounterMetricLogger(testMetricCategoryName, testMetricCategoryDescription, bufferProcessor, true, mockCounterCreationDataCollection, mockCounterCreationDataFactory, mockPerformanceCounterCategory, mockPerformanceCounterFactory, mockDateTime, mockStopWatch, mockGuidProvider);
+                testPerformanceCounterMetricLogger = new PerformanceCounterMetricLogger(testMetricCategoryName, testMetricCategoryDescription, bufferProcessor, IntervalMetricBaseTimeUnit.Millisecond, true, mockCounterCreationDataCollection, mockCounterCreationDataFactory, mockPerformanceCounterCategory, mockPerformanceCounterFactory, mockDateTime, mockStopWatch, mockGuidProvider);
                 testPerformanceCounterMetricLogger.RegisterMetric(new ControlCharacterNameMetric());
                 testPerformanceCounterMetricLogger.CreatePerformanceCounters();
             });
@@ -1275,5 +1276,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
             var throwAway2 = mockStopWatch.Received(4).ElapsedTicks;
             mockPerformanceCounter.DidNotReceiveWithAnyArgs().RawValue = 0L;
         }
+
+        #pragma warning restore CA1416
     }
 }
