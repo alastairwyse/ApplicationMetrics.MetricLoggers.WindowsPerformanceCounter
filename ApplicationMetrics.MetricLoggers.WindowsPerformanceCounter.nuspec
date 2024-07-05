@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter</id>
-    <version>5.1.0</version>
+    <version>5.2.0</version>
     <authors>Alastair Wyse</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">Apache-2.0</license>
@@ -10,17 +10,16 @@
     <icon>ApplicationMetrics.png</icon>
     <projectUrl>https://github.com/alastairwyse/ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter</projectUrl>
     <description>An implementation of an ApplicationMetrics metric logger which writes metrics and instrumentation information to Windows performance counters.</description>
-    <releaseNotes>      Updated for compatibility with ApplicationMetrics version 6.0.0.
-Updated to .NET 6.0.</releaseNotes>
-    <copyright>Copyright © Alastair Wyse 2023</copyright>
+    <releaseNotes>Updated for compatibility with ApplicationMetrics version 6.3.0.</releaseNotes>
+    <copyright>Copyright © Alastair Wyse 2024</copyright>
     <tags>metric metrics instrumentation client application windows performance counter statistics filter</tags>
     <repository type="git" url="https://github.com/alastairwyse/ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter" />
     <dependencies>
       <group targetFramework="net6.0">
-        <dependency id="ApplicationMetrics" version="6.0.0" exclude="Build,Analyzers" />
+        <dependency id="ApplicationMetrics" version="6.3.0" exclude="Build,Analyzers" />
         <dependency id="FrameworkAbstraction" version="2.0.0" exclude="Build,Analyzers" />
-        <dependency id="StandardAbstraction" version="1.1.0" exclude="Build,Analyzers" />
-        <dependency id="System.Diagnostics.PerformanceCounter" version="7.0.0" exclude="Build,Analyzers" />
+        <dependency id="StandardAbstraction" version="1.2.0" exclude="Build,Analyzers" />
+        <dependency id="System.Diagnostics.PerformanceCounter" version="8.0.0" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>

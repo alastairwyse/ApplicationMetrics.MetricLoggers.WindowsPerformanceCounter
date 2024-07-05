@@ -5,14 +5,14 @@
     <TargetFramework>net6.0</TargetFramework>
     <Authors>Alastair Wyse</Authors>
     <Description>An implementation of an ApplicationMetrics metric logger which writes metrics and instrumentation information to Windows performance counters.</Description>
-    <Copyright>Copyright © Alastair Wyse 2023</Copyright>
+    <Copyright>Copyright © Alastair Wyse 2024</Copyright>
     <PackageProjectUrl>https://github.com/alastairwyse/ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter</PackageProjectUrl>
     <PackageIcon>ApplicationMetrics.png</PackageIcon>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageTags>metric metrics instrumentation client application windows performance counter statistics</PackageTags>
-    <PackageReleaseNotes>Updated for compatibility with ApplicationMetrics version 4.0.0.</PackageReleaseNotes>
+    <PackageReleaseNotes>Updated for compatibility with ApplicationMetrics version 6.3.0.</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>5.1.0</Version>
+    <Version>5.2.0</Version>
     <ApplicationIcon>ApplicationMetrics.ico</ApplicationIcon>
     <RepositoryUrl>https://github.com/alastairwyse/ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -39,10 +39,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ApplicationMetrics" Version="6.0.0" />
+    <PackageReference Include="ApplicationMetrics" Version="6.3.0" />
     <PackageReference Include="FrameworkAbstraction" Version="2.0.0" />
-    <PackageReference Include="StandardAbstraction" Version="1.1.0" />
-    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="7.0.0" />
+    <PackageReference Include="StandardAbstraction" Version="1.2.0" />
+    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="8.0.0" />
   </ItemGroup>
 
 </Project>

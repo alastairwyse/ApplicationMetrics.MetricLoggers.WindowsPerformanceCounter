@@ -47,6 +47,9 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
         private IStopwatch mockStopWatch;
         private IGuidProvider mockGuidProvider;
         private ICounterCreationData mockCounterCreationData;
+        private Exception testBufferProcessingException;
+        private Int32 bufferProcessingExceptionActionCallCount;
+        private Action<Exception> testBufferProcessingExceptionAction;
         private ManualResetEvent workerThreadLoopIterationCompleteSignal;
         private LoopingWorkerThreadBufferProcessor bufferProcessor;
         private PerformanceCounterMetricLogger testPerformanceCounterMetricLogger;
@@ -61,10 +64,18 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
             mockPerformanceCounter = Substitute.For<IPerformanceCounter>();
             mockDateTime = Substitute.For<IDateTime>();
             mockStopWatch = Substitute.For<IStopwatch>();
+            mockStopWatch.Frequency.Returns<Int64>(10000000);
             mockGuidProvider = Substitute.For<IGuidProvider>();
             mockCounterCreationData = Substitute.For<ICounterCreationData>();
+            testBufferProcessingException = null;
+            bufferProcessingExceptionActionCallCount = 0;
+            testBufferProcessingExceptionAction = (Exception bufferProcessingException) =>
+            {
+                testBufferProcessingException = bufferProcessingException;
+                bufferProcessingExceptionActionCallCount++;
+            };
             workerThreadLoopIterationCompleteSignal = new ManualResetEvent(false);
-            bufferProcessor = new LoopingWorkerThreadBufferProcessor(10, workerThreadLoopIterationCompleteSignal, 1);
+            bufferProcessor = new LoopingWorkerThreadBufferProcessor(10, testBufferProcessingExceptionAction, true, workerThreadLoopIterationCompleteSignal, 1);
             testPerformanceCounterMetricLogger = new PerformanceCounterMetricLogger(testMetricCategoryName, testMetricCategoryDescription, bufferProcessor, IntervalMetricBaseTimeUnit.Millisecond, true, mockCounterCreationDataCollection, mockCounterCreationDataFactory, mockPerformanceCounterCategory, mockPerformanceCounterFactory, mockDateTime, mockStopWatch, mockGuidProvider);
 
             mockGuidProvider.NewGuid().Returns(Guid.NewGuid());
@@ -1109,6 +1120,7 @@ namespace ApplicationMetrics.MetricLoggers.WindowsPerformanceCounter.UnitTests
         [Test]
         public void LogIntervalOverCountAggregate()
         {
+            mockStopWatch.Frequency.Returns<Int64>(10000000);
             mockDateTime.UtcNow.Returns<System.DateTime>
              (
                  // Returns for calls to Start()
